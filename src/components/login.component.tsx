@@ -38,15 +38,11 @@ export default class LoginComponent extends Component {
                                 required={true}
                             />
                         </div>
-                        <div className="flex items-center gap-2">
-                            {/* <No Display Name id="remember" /> */}
-                            <Label htmlFor="remember">
-                                Remember me
-                            </Label>
+                        <div className='mt-5 justify-center flex'>
+                            <Button type="submit">
+                                Submit
+                            </Button>
                         </div>
-                        <Button type="submit">
-                            Submit
-                        </Button>
                     </form>
                 </Card>
             </div>
