@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Missing from './components/Missing';
 import RequireAuth from './components/RequireAuth';
 import Unauthorized from './components/Unauthorized';
+import DashboardComponent from './components/dashboard.component';
 
 const ROLES = {
   'User': 2001,
@@ -25,8 +26,8 @@ function App() {
           <Route path="unauthorized" element={<Unauthorized />} />
 
           {/* we want to protect these routes */}
-          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-            <Route path="/" element={<Home />} />
+          <Route element={<RequireAuth />}>
+            <Route path="dashboard" element={<DashboardComponent />} />
           </Route>
 
           {/* catch all */}
