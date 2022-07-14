@@ -1,8 +1,7 @@
 import { Button, Card, Label, TextInput } from 'flowbite-react'
-import PropTypes from 'prop-types'
-import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
-import axios from '../api/axios';
+import { useLocation, useNavigate } from 'react-router-dom';
+import authService from '../services/auth.service';
 
 interface IFormInputs {
     email: string
@@ -10,14 +9,18 @@ interface IFormInputs {
 }
 
 const LoginComponent = () => {
+    let navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit } = useForm<IFormInputs>();
-    const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-        debugger
-        axios.post('/auth/login', data).then((response: any) => {
+    const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
+        try {
+            const loginResponse = await authService.login(data);
+            console.log(loginResponse);
+            const loggedInUser= await authService.getLoggedInUserInfo();
+            navigate("/dashboard", { replace: true });
             debugger
-        }).catch((err) => {
-            debugger
-        })
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <div className='w-fill md:w-1/2'>
