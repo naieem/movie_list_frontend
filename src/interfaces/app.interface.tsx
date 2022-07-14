@@ -1,5 +1,7 @@
+import { IPaginate } from "./IPaginate.interface";
+
 export interface IMovie {
-    getAllMovie(): Promise<Movie[]>;
+    getAllMovie(payload:IPaginate): Promise<Movie[]>;
 }
 export interface Movie {
     Title: string;

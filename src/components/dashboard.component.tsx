@@ -8,16 +8,14 @@ import Pagination from './pagination.component';
 const PageSize = 10;
 export const DashboardComponent = (props: any) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [movielist, setMovies] = useState<Movie[]>([])
     const [currentMovie, setCurrentMovie] = useState<Movie[]>([])
+    const [totalMovie, setTotalMovie] = useState<number>(0)
 
     useMemo(async () => {
-        const movies: any = await appService.getAllMovie();
+        const movies: any = await appService.getAllMovie({pageNumber:currentPage});
         debugger
-        setMovies(movies.result)
-        const firstPageIndex = (currentPage - 1) * PageSize;
-        const lastPageIndex = firstPageIndex + PageSize;
-        setCurrentMovie(movies.result.slice(firstPageIndex, lastPageIndex));
+        setCurrentMovie(movies.result.data)
+        setTotalMovie(movies.result.total)
     }, [currentPage]) as any;
     return (
         <Card>
@@ -69,7 +67,7 @@ export const DashboardComponent = (props: any) => {
             <Pagination
                 className="pagination-bar"
                 currentPage={currentPage}
-                totalCount={movielist.length}
+                totalCount={totalMovie}
                 pageSize={PageSize}
                 onPageChange={(page: number) => setCurrentPage(page)}
             />
