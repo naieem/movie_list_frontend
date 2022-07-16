@@ -10,9 +10,9 @@ const RequireAuth = () => {
             try {
                 const loggedInUser = await authService.getLoggedInUserInfo()
                 setuserAuth(loggedInUser)
-                debugger
+                
             } catch (error) {
-                debugger
+                
             }
         })()
     }, [])

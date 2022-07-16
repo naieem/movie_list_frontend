@@ -6,10 +6,10 @@ class AppService implements IMovie {
     async getAllMovie(payload: IPaginate): Promise<Movie[]> {
         return new Promise((resolve, reject) => {
             axios.post('/movies/list', payload).then((response: any) => {
-                debugger
+                
                 resolve(response?.data || response)
             }).catch((err: any) => {
-                debugger
+                
                 reject(err)
             })
         })

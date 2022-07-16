@@ -5,10 +5,10 @@ class AuthService implements IAuth {
     async login(payload: IloginPayload): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.post('/auth/login', payload).then((response: any) => {
-                debugger
+                
                 resolve(response?.data || response)
             }).catch((err: any) => {
-                debugger
+                
                 reject(err)
             })
         })
@@ -16,10 +16,10 @@ class AuthService implements IAuth {
     async getLoggedInUserInfo(): Promise<any> {
         return new Promise((resolve, reject) => {
             axios.get('/auth/me').then((response: any) => {
-                debugger
+                
                 resolve(response?.data || response)
             }).catch((error: any) => {
-                debugger
+                
                 reject(error)
             })
         })
