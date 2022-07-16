@@ -18,23 +18,21 @@ const ROLES = {
 
 function App() {
   return (
-    <div className="container mx-auto px-4 py-4 justify-center flex h-screen items-center">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* public routes */}
-          <Route path="login" element={<LoginComponent />} />
-          <Route path="unauthorized" element={<Unauthorized />} />
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
+        <Route path="login" element={<LoginComponent />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
 
-          {/* we want to protect these routes */}
-          <Route element={<RequireAuth />}>
-            <Route path="dashboard" element={<DashboardComponent />} />
-          </Route>
-
-          {/* catch all */}
-          <Route path="*" element={<Missing />} />
+        {/* we want to protect these routes */}
+        <Route element={<RequireAuth />}>
+          <Route path="dashboard" element={<DashboardComponent />} />
         </Route>
-      </Routes>
-    </div>
+
+        {/* catch all */}
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
 }
 
