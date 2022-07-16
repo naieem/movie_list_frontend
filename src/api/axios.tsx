@@ -7,11 +7,9 @@ const UserAxios = axios.create({
 });
 UserAxios.interceptors.response.use(
     response => {
-        
         return response.data
     },
     error => {
-        
         if (error.response.data.result.statusCode === 401) {
             window.location.href = '/login';
         }
