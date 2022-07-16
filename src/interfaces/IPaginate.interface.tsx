@@ -3,8 +3,6 @@ export interface IPaginate {
     sort?: {
       [key: string]: string;
     };
-    search?: {
-      [key: string]: string;
-    }[];
+    search?: string;
   }
   
