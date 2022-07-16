@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Card } from 'flowbite-react';
 import { useEffect, useMemo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
