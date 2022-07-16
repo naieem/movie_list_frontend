@@ -14,6 +14,9 @@ export const DashboardComponent = (props: any) => {
     const PageSize = 10;
     const [searchSubs] = useState(new Subject<string>())
     const [searchQuery, setSearchQuery] = useState<string>()
+    const [sortBy, setSortBy] = useState<string>("")
+    const [sortStatus, setSortStatus] = useState<string>("")
+    const [sortOrder, setSortOrder] = useState<string>("")
     // pagination related variables
     const [currentPage, setCurrentPage] = useState(1);
     const [currentMovie, setCurrentMovie] = useState<Movie[]>([])
@@ -32,17 +35,28 @@ export const DashboardComponent = (props: any) => {
 
     useMemo(async () => {
         let payload: IPaginate = { pageNumber: currentPage }
-        if (searchQuery)
+        if (searchQuery) {
             payload.search = searchQuery;
+        }
+        if (sortBy && sortOrder) {
+            payload.sort = {
+                [sortBy]: sortOrder
+            }
+        }
         const movies: any = await appService.getAllMovie(payload);
         debugger
         setCurrentMovie(movies.result.data)
         setTotalMovie(movies.result.total)
-    }, [currentPage, searchQuery]);
+    }, [currentPage, searchQuery, sortBy, sortOrder]);
 
     const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         ev.preventDefault()
         searchSubs.next(ev.target.value)
+    }
+    const setSorting = (sortBy: string, sortOrder: string, sortStatus: string) => {
+        setSortBy(sortBy);
+        setSortOrder(sortOrder)
+        setSortStatus(sortStatus)
     }
     return (
         <Card>
@@ -62,10 +76,22 @@ export const DashboardComponent = (props: any) => {
                             Poster
                         </th>
                         <th scope="col" className="py-3 px-6">
-                            Title
+                            <div className="flex items-center">
+                                Title
+                                <div>
+                                    <p>{sortStatus !== 'titledesc' && <a className=' ml-4' href="#" onClick={() => setSorting("Title", "desc", "titledesc")}>&#9650;</a>}</p>
+                                    <p>{sortStatus !== 'titleasc' && <a className=' ml-4' href="#" onClick={() => setSorting("Title", "asc", "titleasc")}>&#9660;</a>}</p>
+                                </div>
+                            </div>
                         </th>
                         <th scope="col" className="py-3 px-6">
-                            Year
+                            <div className="flex items-center">
+                                Year
+                                <div>
+                                    <p>{sortStatus !== 'yeardesc' && <a href="#" className=' ml-4' onClick={() => setSorting("Year", "desc", "yeardesc")}>&#9650;</a>}</p>
+                                    <p>{sortStatus !== 'yearasc' && <a href="#" className=' ml-4' onClick={() => setSorting("Year", "asc", "yearasc")}>&#9660;</a>}</p>
+                                </div>
+                            </div>
                         </th>
                         <th scope="col" className="py-3 px-6">
                             imdbID
