@@ -1,6 +1,6 @@
 import { Button, Card, Label, TextInput } from 'flowbite-react'
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import authService from '../services/auth.service';
 
 interface IFormInputs {
