@@ -1,6 +1,8 @@
 import { Button, Card, Label, TextInput } from 'flowbite-react'
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setLoggedInUserEmail } from '../reducers/authReducer';
 import authService from '../services/auth.service';
 
 interface IFormInputs {
@@ -9,15 +11,17 @@ interface IFormInputs {
 }
 
 const LoginComponent = () => {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
     const { register, formState: { errors }, handleSubmit } = useForm<IFormInputs>();
     const onSubmit: SubmitHandler<IFormInputs> = async (data) => {
         try {
-            const loginResponse = await authService.login(data);
-            console.log(loginResponse);
+            await authService.login(data);
             const loggedInUser = await authService.getLoggedInUserInfo();
+            debugger;
+            dispatch(setLoggedInUserEmail(loggedInUser.result.email));
             navigate("/dashboard", { replace: true });
-            debugger
+
         } catch (error) {
             console.log(error)
         }
