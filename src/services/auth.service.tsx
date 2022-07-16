@@ -24,5 +24,15 @@ class AuthService implements IAuth {
             })
         })
     }
+    async logout(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            axios.post('/auth/logout',{}).then((response: any) => {
+                resolve(response?.data || response)
+            }).catch((error: any) => {
+                
+                reject(error)
+            })
+        })
+    }
 }
 export default new AuthService();
